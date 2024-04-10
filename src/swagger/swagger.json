@@ -1,0 +1,268 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Arithmetic Operation API",
+      "description": "API for performing basic arithmetic operations with JWT authentication including refresh tokens"
+    },
+    "basePath": "/",
+    "schemes": ["http"],
+    "paths": {
+      "/auth/login": {
+        "post": {
+          "summary": "User Login",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "user"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful login",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accessToken": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  },
+                  "refreshToken": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized - Invalid username or password"
+            }
+          }
+        }
+      },
+      "/auth/refresh": {
+        "post": {
+          "summary": "Refresh Access Token",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "refreshToken": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "New access token generated",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accessToken": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized - Invalid refresh token"
+            }
+          }
+        }
+      },
+      "/arithmetic/add": {
+        "post": {
+          "summary": "Perform addition operation",
+          "security": [{ "BearerAuth": [] }],
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "num1": {
+                    "type": "number",
+                    "example": 5
+                  },
+                  "num2": {
+                    "type": "number",
+                    "example": 3
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "number",
+                    "example": 8
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/arithmetic/subtract": {
+        "post": {
+          "summary": "Perform subtraction operation",
+          "security": [{ "BearerAuth": [] }],
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "num1": {
+                    "type": "number",
+                    "example": 5
+                  },
+                  "num2": {
+                    "type": "number",
+                    "example": 3
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "number",
+                    "example": 2
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/arithmetic/multiply": {
+        "post": {
+          "summary": "Perform multiplication operation",
+          "security": [{ "BearerAuth": [] }],
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "num1": {
+                    "type": "number",
+                    "example": 5
+                  },
+                  "num2": {
+                    "type": "number",
+                    "example": 3
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "number",
+                    "example": 15
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/arithmetic/divide": {
+        "post": {
+          "summary": "Perform division operation",
+          "security": [{ "BearerAuth": [] }],
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "num1": {
+                    "type": "number",
+                    "example": 6
+                  },
+                  "num2": {
+                    "type": "number",
+                    "example": 3
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "type": "number",
+                    "example": 2
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Cannot divide by zero"
+            }
+          }
+        }
+      }
+    },
+    "securityDefinitions": {
+      "BearerAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "JWT token required for authorization"
+      }
+    }
+  }
+  
