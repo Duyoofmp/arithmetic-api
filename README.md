@@ -21,3 +21,15 @@ This Node.js application provides a simple arithmetic operation API protected by
    ```bash
     cd arithmetic-api
 
+3. Install dependencies:
+     ```bash
+    npm install
+
+## Usage
+
+1. Start the server:
+    change directory to src folder then:
+    
+    ```bash
+    node app.js
+
